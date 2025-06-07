@@ -1,6 +1,7 @@
-FROM python:3.10
-WORKDIR /app
+FROM python:3.10-slim
+
 COPY . .
+
 RUN pip install -r requirements.txt
-EXPOSE 7860
+
 CMD ["python", "web.py"]

@@ -1,6 +1,7 @@
 import gradio as gr
 from transformers import AutoTokenizer, AutoModelForCausalLM
 import torch
+import os
 
 # Load your fine-tuned model and tokenizer
 model_path = "./my_chatbot"  # <- your trained model directory
@@ -34,9 +35,9 @@ def chat(user_input, history=[]):
 
 # Build Gradio UI
 with gr.Blocks() as demo:
-    gr.Markdown("# 🤖 Code Review Chatbot")
+    gr.Markdown("Talking to your favorite Engineer...")
     chatbot = gr.Chatbot()
-    msg = gr.Textbox(label="Ask a question like you're in a code review")
+    msg = gr.Textbox(label="Ask a question like you're talking to your favorite Engineer")
     clear = gr.Button("Clear")
 
     state = gr.State([])
@@ -45,4 +46,4 @@ with gr.Blocks() as demo:
     clear.click(lambda: ([], []), None, [chatbot, state])
 
 # Launch it
-demo.launch()
+demo.launch(server_name="0.0.0.0", server_port=int(os.environ.get("PORT", 7860)))
